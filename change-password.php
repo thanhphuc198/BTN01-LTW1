@@ -33,15 +33,17 @@
 <?php else: ?>
 <hr>
 <form style="width:400px;" action="change-password.php" method="POST">
-<div class="form-group">
+    <div class="form-group">
         <label for="currentPassword">Mật khẩu cũ:</label>
-        <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Nhập mật khẩu cũ">
+        <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+            placeholder="Nhập mật khẩu cũ">
     </div>
     <div class="form-group">
         <label for="password">Mật khẩu mới:</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu mới">
     </div>
     <button type="submit" class="btn btn-primary float-right">Xác nhận</button>
+    <a href="profile.php" class="btn btn-secondary float-left">Quay lại</a>
 </form>
 <?php endif; ?>
 <?php include 'footer.php'; ?>

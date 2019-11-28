@@ -37,4 +37,11 @@ function updateUserPassword($id, $password){
     $stmt=$db->prepare("UPDATE users SET password =? WHERE id=?");
     return $stmt->execute(array($hashPassword,$id));
 }
+
+function updateProfile($id, $displayName,$email,$sdt,$namsinh){
+    global $db;
+    $stmt=$db->prepare("UPDATE users SET displayName =?, email=?, sdt=?, namsinh=? WHERE id=?");
+    return $stmt->execute(array($displayName,$email,$sdt,$namsinh,$id));
+}
+
 ?>

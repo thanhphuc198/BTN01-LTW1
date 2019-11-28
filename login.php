@@ -44,8 +44,3 @@ header('Location: index.php');
 </form>
 <?php endif; ?>
 <?php include 'footer.php'; ?>
-<!-- email:phuquy@gmail.com
-     pass:123456
-
-phuong@gmail.com
-pass:123456 -->
