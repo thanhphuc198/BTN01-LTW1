@@ -44,4 +44,4 @@ header('Location: index.php');
     <button type="submit" class="btn btn-primary float-right">Đăng ký</button>
 </form>
 <?php endif; ?>
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?> 
