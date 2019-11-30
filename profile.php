@@ -5,6 +5,8 @@
     exit();
 }
 ?>
+<DOCTYPE html>
+<html>
 <?php include 'header.php'?>
 <h1 class="text-primary mt-2">THÔNG TIN CÁ NHÂN</h1>
 <hr>
@@ -12,7 +14,14 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img src="https://1660485trinhphuquy.000webhostapp.com/1.png" class="card-img-top" alt="...">
+                <?php if ($currentUser['image'] == ""){
+                        echo"<img src='https://1660485trinhphuquy.000webhostapp.com/1.png' class='card-img-top' alt='...'>";
+                        }else
+                        {
+                            echo"<img width='100' height='200' src='".$currentUser['image']."' class='card-img-top' alt='...'>";
+                        }
+                ?>
+
                 <div class="card-body text-center">
                     <h5 class="card-title"><strong><?php echo $currentUser? $currentUser['displayName']:''?></strong>
                     </h5>
@@ -47,3 +56,4 @@
         </div>
     </div>
     <?php include 'footer.php'; ?>
+</html>
