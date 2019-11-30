@@ -38,10 +38,10 @@ function updateUserPassword($id, $password){
     return $stmt->execute(array($hashPassword,$id));
 }
 
-function updateProfile($id, $displayName,$email,$sdt,$namsinh){
+function updateProfile($id, $displayName,$email,$sdt,$namsinh,$image){
     global $db;
-    $stmt=$db->prepare("UPDATE users SET displayName =?, email=?, sdt=?, namsinh=? WHERE id=?");
-    return $stmt->execute(array($displayName,$email,$sdt,$namsinh,$id));
+    $stmt=$db->prepare("UPDATE users SET displayName =?, email=?, sdt=?, namsinh=?, image=? WHERE id=?");
+    return $stmt->execute(array($displayName,$email,$sdt,$namsinh,$image,$id));
 }
 
 ?>
