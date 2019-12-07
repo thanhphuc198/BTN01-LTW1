@@ -33,8 +33,9 @@
 
 <?php if($currentUser):?>
 <?php include 'header.php'; ?>
-<h1 class="text-primary"><strong>Trang chủ</strong></h1>
-<div class="text-body">Chúc mừng <strong><?php echo $currentUser ? $currentUser['displayName']: ''?></strong> đã đăng nhập thành công !</div>
+<body style= 'margin: 0px 0px 0px 500px'>
+    <div  class="text-body">Chúc mừng <strong><?php echo $currentUser ? $currentUser['displayName']: ''?></strong> đã đăng nhập thành công !</div>
+</body>
 <?php else:?>
   <body style= 'background-image: url(/docs/css/backgroud.jpg); background-size: cover' >
     <form class="form-signin" method="POST">

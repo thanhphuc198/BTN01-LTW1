@@ -7,19 +7,17 @@
   require_once 'init.php';
 ?>
 
-<head>
+<!-- <head>
     <title>LTWeb 1</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <!-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
     <link href="/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
       .bd-placeholder-img {
@@ -35,15 +33,91 @@
           font-size: 3.5rem;
         }
       }
-    </style>
+    </style> -->
     <!-- Custom styles for this template -->
-    <link href="/css/signing.css" rel="stylesheet">
-  </head>
+    <!-- <link href="/css/signing.css" rel="stylesheet">
+  </head> -->
 
 
 </head>
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Mạng Xã Hội ABC</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/signing.css" rel="stylesheet">
+          <style type="text/css">
+            *{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            }
 
-<body class="text-center">
+            #sidebar{
+            position: fixed;
+            width: 200px;
+            height: 100%;
+            background: #151719;
+            left: -200px;
+            transition: all 500ms linear;
+            }
+            #sidebar.active{
+            left:0px;
+            }
+            #sidebar ul li{
+            color: blue;
+            list-style: none;
+            padding: 15px 10px;
+            border-bottom: 1px solid blue;
+            }
+            #sidebar .toggle-btn{
+            position: absolute;
+            left: 205px;
+            top: 10px;
+            }
+            #sidebar .toggle-btn span{
+            display: block;
+            width: 30px;
+            height: 5px;
+            background: #151719;
+            margin: 5px 0px;
+
+            }
+          </style>
+ <script type="text/javascript">
+  function toggleSidebar(){
+   document.getElementById("sidebar").classList.toggle('active');
+  }
+ </script>
+</head>
+<body>
+ <div id="sidebar">
+  <div class="toggle-btn" onclick="toggleSidebar()"><a>
+   <span></span>
+   <span></span>
+   <span></span>
+  </a>
+  </div>
+  <ul>
+  <li class="nav-item <?php echo $page=='index' ? 'active':''?>">
+                    <a class="nav-link" style="float: top" href="index.php">Trang chủ</a>
+    </li>
+    <li class="nav-item <?php echo $page=='profile' ? 'active':''?>">
+                    <a class="nav-link" style="float: top" href="profile.php">Trang cá nhân</a>
+    </li>
+    <li class="nav-item <?php echo $page=='friends' ? 'active':''?>">
+                    <a class="nav-link" style="float: top" href="friends.php">Bạn bè</a>
+                </li>
+    <li class="nav-item <?php echo $page=='logout' ? 'active':''?>">
+                    <a class="nav-link" style="float: top" href="logout.php">Đăng xuất</a>
+                </li>
+  </ul>
+ </div>
+</body>
+</html>
+<!-- <body class="text-center">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.php">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -73,4 +147,4 @@
             </ul>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid"> -->
