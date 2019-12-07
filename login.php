@@ -1,8 +1,6 @@
 <?php 
   require_once 'init.php';
 ?>
-<?php include 'header.php'?>
-<h1 class="text-primary mt-2">ĐĂNG NHẬP</h1>
 <?php if(isset($_POST['email']) && isset($_POST['password'])): ?>
 <?php 
 
@@ -20,9 +18,9 @@
 <!-- <div class="alert alert-success mt-2 text-center" role="alert">
     Đăng nhập thành công!
 </div> -->
-<?php
-header('Location: index.php');
-?>
+  <?php
+  header('Location: index.php');
+  ?>
 <?php else: ?>
 <div class="alert alert-danger mt-2 text-center" role="alert">
     Đăng nhập thất bại!
@@ -39,10 +37,7 @@ header('Location: index.php');
     <meta name="generator" content="Jekyll v3.8.6">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-    <link href="/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/docs/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -59,20 +54,25 @@ header('Location: index.php');
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="/css/signing.css" rel="stylesheet">
+    <link href="/docs/css/signing.css" rel="stylesheet">
   </head>
-<body class="text-center">
+<body class="text-center"  style= 'background-image: url(/docs/css/background2.jpg); background-size: cover; float: top'>
+    <h1 class="h3 mb-3 font-weight-normal" style ='float: left'>Hệ thống mạng xã hội<br>   lớn nhất VN</h1>
     <form  class="form-signin" action="login.php"
         method="POST">
             <img class="mb-4" src="bootstrap-solid.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Thông Tin Đăng Nhập</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Đăng Nhập</h1>
             <label for="inputEmail" class="sr-only">Email:</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>        
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="password" class="form-control" name="password" placeholder="Password" required> 
-            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn_submit">Đặt trước</button>
-            <p class="mt-5 mb-3 text-muted">&copy; KHTN</p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn_submit">Đăng Nhập</button>
+            <label>Chưa có tài khoản ?</label>
+            <a href="register.php" target="_blank" class="btn btn-secondary my-2" style="background: violet" name="btn_signup">Đăng Ký</a>
+            <a href="index.php" target="_blank" class="btn btn-secondary my-2" name="btn_signup">Trang Chủ</a>
+            <p class="mt-5 mb-3 text-muted">&copy; KHTN 2016-2019</p>
     </form>
+    
 </body>
 <?php endif; ?>
 <?php include 'footer.php'; ?>
