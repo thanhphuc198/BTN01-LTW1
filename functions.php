@@ -44,4 +44,18 @@ function updateProfile($id, $displayName,$email,$sdt,$namsinh,$image){
     return $stmt->execute(array($displayName,$email,$sdt,$namsinh,$image,$id));
 }
 
+
+function insertPost($content, $userID){
+    global $db;
+    $stmt=$db->prepare("INSERT INTO posts(content, userId) VALUES(?,?)");
+    return $stmt->execute(array($content, $userID));
+}
+
+function findPost($userID){
+    global $db;
+    $stmt=$db->prepare("SELECT * FROM posts where userId=?");
+    $stmt->query(array($userID));
+    return $stmt->Fetch(PDO::FETCH_ASSOC);
+}
+
 ?>

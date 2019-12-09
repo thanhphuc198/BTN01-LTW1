@@ -42,14 +42,14 @@
 <div class="container-fluid" style="margin: 0px -30px 0px -34px">
     <div class="row">
         <div class="col-md-8" >
-            <div class="card" action="profile.php" method="POST" style="margin: 5px 0px 0px 0px; width: 680px">
+            <div class="card"  style="margin: 5px 0px 0px 0px; width: 680px">
                 <h5 class="card-header">Cập nhật trạng thái</h5>
                 <div class="card-body">
-                    <form action="update-profile.php" method="POST">
+                    <form  method="POST">
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Bạn đang nghĩ gì?"
+                            <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
                                 aria-label="With textarea"></textarea></div>
-                        <button type="submit" class="btn btn-primary float-right">Cập nhật</button>
+                        <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
                     </form>
                 </div>
             </div>
@@ -88,3 +88,13 @@
     <?php include 'footer.php'; ?>
     </body>
 </html>
+
+
+<?php
+if(isset($_POST['btn-capnhat']))
+{
+    $cont=$_POST['contents'];
+    $uID=$currentUser['id'];
+    insertPost($cont,$uID); 
+}
+?>
