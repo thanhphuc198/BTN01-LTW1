@@ -44,7 +44,6 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="/docs/css/signing.css" rel="stylesheet">
   </head>
 <script type="text/javascript">
   function toggleFB(){
@@ -66,12 +65,12 @@
       <div class="card" action="profile.php" method="POST" enctype="multipart/form-data" style="margin: 25px 0px 0px 45px; width: 680px">
                   <h5 class="card-header">Cập nhật trạng thái</h5>
                   <div class="card-body">
-                    <form  method="POST">
+                    <form  action="index.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
                                 aria-label="With textarea"></textarea>
-                                <input type="file" name='Images' id = "Images" class="form-control">
-                              </div>
+                                <input type="file" class="form-control-file" id="file" name="file"> </div>
+                        </div>
                         <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
                     </form >
                     
@@ -90,15 +89,26 @@
                   <i style=' float: right'><?php echo htmlspecialchars($row['createdAt']) ?></i>
                   </div>
                   <div class="card-body">
-                          <div class="form-group">
+                           <div class="form-group">
                             <i><?php echo htmlspecialchars($row['content']) ?></i>
+                            <?php if ($row['imageS'] == ""){
+                                  echo"<hr></hr>";
+                                  }else
+                                  {
+                                      echo"<img width='400' height='auto' src='".$currentUser['image']."' class='card-img-top' alt='...'>";
+                                  }
+                           ?>
                           </div>
                   </div>
                   <div class="card-body">
                       <form action="update-profile.php" method="POST">
-                          <div class="form-group">
-                            <button class="btn btn-lg btn-primary btn-block">Like</button>
-                            <button class="btn btn-lg btn-primary btn-block">Comment</button>
+                            <div class="form-group">
+                            <hr>
+                            <textarea style="margin: 10px;" type="input" id="cmt" name="cmt" class="form-control" placeholder="Nhập cmt?"
+                                aria-label="With textarea"></textarea>
+                                <button style="float: right; width: 150px; height: 30px; color:white; border-radius: 20%; background-color: rgba(0,192,192,.5)">Comment</button>
+
+
                           </div>
                       </form>
                   </div>
@@ -132,8 +142,21 @@ if(isset($_POST['btn-capnhat']))
 {
     $cont=$_POST['contents'];
     $uID=$currentUser['id'];
-    insertPost($cont,$uID); 
-    header("Refresh:0");
+    $move = $_FILES['file']['name'];
+    if($_FILES['file']['name'])
+    {
+      move_uploaded_file($_FILES['file']['tmp_name'], $move);
+      $success=false;
+      insertPostWithImage($cont,$uID,$_FILES['file']['name']);
+      header("Refresh:0");
+    }
+    else
+    {
+      insertPost($cont,$uID);
+      header("Refresh:0");
+    }
 }
 ?>
+
+
 

@@ -1,8 +1,54 @@
 <?php 
   require_once 'init.php';
 ?>
-<?php include 'header.php'?>
-<h1 class="text-primary mt-2">ĐĂNG KÝ</h1>
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+ <title>Mạng Xã Hội ABC</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/css/signing.css" rel="stylesheet">
+          <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: Verdana;           
+                }
+                .image-cropper {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+            }       
+            #sidebar{
+              position: fixed;
+            width: 150px;
+            height: 100%;
+            background: white;
+            left: 0px;
+            box-shadow: inset -2px 0 0 rgba(0, 0, 0, .1);
+            }
+            #sidebar.active{
+            left:0px;
+            }
+            #sidebar ul li{
+            color: black;
+            list-style: none;
+            padding: 0px 0px;
+            }
+
+          </style>
+ <script type="text/javascript">
+  function toggleSidebar(){
+   document.getElementById("sidebar").classList.toggle('active');
+  }
+ </script>
+</head>
+<body class="text-center">
+<h1 style="" class="text-primary mt-2">ĐĂNG KÝ</h1>
 <?php if(isset($_POST['email']) && isset($_POST['password'])): ?>
 <?php 
     $displayName=$_POST['displayName'];
@@ -28,7 +74,7 @@ header('Location: index.php');
 <?php endif; ?>
 <?php else: ?>
 <hr>
-<form style="width:400px;" action="register.php" method="POST">
+<form style="margin:0px 400px 0px 400px" class="form-signin" style="width:400px;" action="register.php" method="POST">
     <div class="form-group">
         <label for="displayName">Họ, tên:</label>
         <input type="displayName" class="form-control" id="email" name="displayName" placeholder="Nhập họ, tên">
@@ -40,8 +86,14 @@ header('Location: index.php');
     <div class="form-group">
         <label for="password">Mật khẩu:</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu">
+        <button type="submit" class="btn btn-primary float-right">Đăng ký</button>
     </div>
-    <button type="submit" class="btn btn-primary float-right">Đăng ký</button>
+    
+    <div style="margin: 50px"class="form-group">
+        <label>Đã có tài khoản ?:</label>
+        <a href="login.php" >Đăng nhập</a>
+    </div>
 </form>
+</body>
 <?php endif; ?>
 <?php include 'footer.php'; ?> 

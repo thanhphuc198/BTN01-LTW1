@@ -45,15 +45,14 @@
             <div class="card"  style="margin: 5px 0px 0px 0px; width: 680px">
                 <h5 class="card-header">Cập nhật trạng thái</h5>
                 <div class="card-body">
-                    <form  method="POST">
+                <form  action="profile.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
-                                aria-label="With textarea"></textarea></div>
+                                aria-label="With textarea"></textarea>
+                                <input type="file" class="form-control-file" id="file" name="file"> </div>
+                        </div>
                         <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
-                    </form>
-                   
-
-                    
+                    </form >
                 </div>
             </div>
         </div>
@@ -98,6 +97,18 @@ if(isset($_POST['btn-capnhat']))
 {
     $cont=$_POST['contents'];
     $uID=$currentUser['id'];
-    insertPost($cont,$uID); 
+    $move = $_FILES['file']['name'];
+    if($_FILES['file']['name'])
+    {
+      move_uploaded_file($_FILES['file']['tmp_name'], $move);
+      $success=false;
+      insertPostWithImage($cont,$uID,$_FILES['file']['name']);
+      header("Refresh:0");
+    }
+    else
+    {
+      insertPost($cont,$uID);
+      header("Refresh:0");
+    }
 }
 ?>

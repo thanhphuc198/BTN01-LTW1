@@ -51,11 +51,18 @@ function insertPost($content, $userID){
     return $stmt->execute(array($content, $userID));
 }
 
+function insertPostWithImage($content, $userID, $image){
+    global $db;
+    $stmt=$db->prepare("INSERT INTO posts(content, userId, imageS) VALUES(?,?,?)");
+    return $stmt->execute(array($content, $userID, $image));
+}
+
 function findPost($userID){
     global $db;
     $stmt=$db->prepare("SELECT * FROM posts where userId=?");
     $stmt->query(array($userID));
-    return $stmt->Fetch(PDO::FETCH_ASSOC);
+    return $stmt->setFetchMode(PDO::FETCH_ASSOC);
 }
+
 
 ?>
