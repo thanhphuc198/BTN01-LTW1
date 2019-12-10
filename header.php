@@ -5,6 +5,10 @@
 <html lang="en">
 <?php 
   require_once 'init.php';
+  global $db;
+  $stm=$db->prepare("SELECT s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
+  $stm->execute(array($currentUser['id']));
+  $stm->setFetchMode(PDO::FETCH_ASSOC);
 ?>
 
 <!-- <head>
@@ -55,19 +59,21 @@
     <link href="/css/signing.css" rel="stylesheet">
           <style type="text/css">
             *{
-            margin: 0;
-            padding: 0;
-            font-family: Verdana;
-            
-            }
-
+                margin: 0;
+                padding: 0;
+                font-family: Verdana;           
+                }
+                .image-cropper {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+            }       
             #sidebar{
-            position: fixed;
+              position: fixed;
             width: 150px;
             height: 100%;
-            background: #F2EFFB;
+            background: white;
             left: 0px;
-            transition: all 500ms linear;
             box-shadow: inset -2px 0 0 rgba(0, 0, 0, .1);
             }
             #sidebar.active{
@@ -78,18 +84,7 @@
             list-style: none;
             padding: 0px 0px;
             }
-            #sidebar .toggle-btn{
-            position: absolute;
-            left: 205px;
-            top: 10px;
-            }
-            #sidebar .toggle-btn span{
-            display: block;
-            width: 30px;
-            height: 5px;
-            background: white;
-            margin: 5px 0px;
-            }
+
           </style>
  <script type="text/javascript">
   function toggleSidebar(){
@@ -114,12 +109,18 @@
     <li class="nav-item <?php echo $page=='profile' ? 'active':''?>">
                     <a class="nav-link" style="float: top" href="profile.php"><mark>P</mark>rofile</a>
     </li>
-    <li class="nav-item <?php echo $page=='friends' ? 'active':''?>">
-                    <a class="nav-link" style="float: top" href="friends.php"><mark>F</mark>riends</a>
-                </li>
     <li class="nav-item <?php echo $page=='logout' ? 'active':''?>">
                     <a class="nav-link" style="float: top" href="logout.php"><mark>L</mark>ogout</a>
                 </li>
+    <li style="margin: 20px;" class="nav-item ">
+                    <Strong style="float: top" ><mark>Friend List</mark></a>
+                </li>
+    <?php while ($row = $stm->fetch()): ?>
+      <li style="width: 235px; margin: 10px;">
+                  <?php echo"<img src='".$row['image']."' class='image-cropper' alt='...'>"; ?>
+                  <a href="#" style="font-size: 10px;"> <?php echo $row? $row['displayName']:''?> </a>     
+     </li>
+    <?php endwhile; ?>
   </ul>
  </div>
 </body>

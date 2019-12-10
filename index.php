@@ -4,6 +4,8 @@
   $stmt=$db->prepare("SELECT * FROM posts where userId=?");
   $stmt->execute(array($currentUser['id']));
   $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+
 ?>
 
 
@@ -44,23 +46,33 @@
     <!-- Custom styles for this template -->
     <link href="/docs/css/signing.css" rel="stylesheet">
   </head>
-
+<script type="text/javascript">
+  function toggleFB(){
+   document.getElementById("friendBars").classList.toggle('active');
+  }
+ </script>
 <?php if($currentUser):?>
 <?php include 'header.php'; ?>
-<body>
-  <ul style='margin: -50px 0px auto 300px; list-style: none;box-shadow: inset -2px 0 0 rgba(0, 0, 0, .1); background-color: rgba(192,192,192,.4);width: 800px; '>
+<body style='background: url(Wallground.jpg);'>
+  <ul style='margin: 0px 0px 0px 300px; list-style: none;box-shadow: inset -2px 0 0 rgba(0, 0, 0, .1); background-color: rgba(192,192,192,.4);width: 800px;'>
+    <li   >
+      <form style="margin: 50px 0px 0px 250px;" class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <li>
     <li>
       <div class="col-md-8">
               <div class="card" action="profile.php" method="POST" style="margin: 25px 0px 0px 45px; width: 680px">
                   <h5 class="card-header">Cập nhật trạng thái</h5>
                   <div class="card-body">
-                      <form action="update-profile.php" method="POST">
-                          <div class="form-group">
-                              <textarea class="form-control" placeholder="Bạn đang nghĩ gì?"
-                                  aria-label="With textarea"></textarea></div>
-                          <button type="submit" class="btn btn-primary float-right">Cập nhật</button>
-                      </form>
-                  </div>
+                    <form  method="POST">
+                        <div class="form-group">
+                            <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
+                                aria-label="With textarea"></textarea></div>
+                        <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
+                    </form>
+                </div>
               </div>
           </div>
     </li>
@@ -71,12 +83,18 @@
                   <div style="margin:10px 5px 5px 20px">
                   <?php echo"<img src='".$currentUser['image']."' class='image-cropper' alt='...'>"; ?>
                   <strong> <?php echo $currentUser? $currentUser['displayName']:''?> </strong>
-                  <i style='margin: 150px'><?php echo htmlspecialchars($row['createdAt']) ?></i>
+                  <i style=' float: right'><?php echo htmlspecialchars($row['createdAt']) ?></i>
+                  </div>
+                  <div class="card-body">
+                          <div class="form-group">
+                            <i><?php echo htmlspecialchars($row['content']) ?></i>
+                          </div>
                   </div>
                   <div class="card-body">
                       <form action="update-profile.php" method="POST">
                           <div class="form-group">
-                            <i><?php echo htmlspecialchars($row['content']) ?></i>
+                            <button class="btn btn-lg btn-primary btn-block">Like</button>
+                            <button class="btn btn-lg btn-primary btn-block">Comment</button>
                           </div>
                       </form>
                   </div>
@@ -103,5 +121,15 @@
 	if (isset($_POST["btn-signup"])) {
     header('Location: login.php');
   } 
+?>
+
+<?php
+if(isset($_POST['btn-capnhat']))
+{
+    $cont=$_POST['contents'];
+    $uID=$currentUser['id'];
+    insertPost($cont,$uID); 
+    header("Refresh:0");
+}
 ?>
 

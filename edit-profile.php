@@ -34,7 +34,6 @@
     <!-- Custom styles for this template -->
     <link href="/docs/css/signing.css" rel="stylesheet">
   </head>
-<?php include 'header.php'?>
 <?php if(isset($_POST['displayName']) || isset($_POST['email']) || isset($_POST['sdt']) || isset($_POST['namsinh']) || isset($_FILES['file'])): ?>
 <?php  
 
@@ -61,7 +60,7 @@ header('Location:profile.php');
 <?php endif; ?>
 <?php else: ?>
 <body class="text-center">
-    <form  class="form-signin" action="edit-profile.php" method="POST" enctype="multipart/form-data">
+    <form style="margin: 0px 0px 0px 300px" class="form-signin" action="edit-profile.php" method="POST" enctype="multipart/form-data">
             <h1 class="h3 mb-3 font-weight-normal">Cập nhật profile</h1>
             <div class="form-label-group">
             <label for="displayName" class="sr-only">Họ  tên:</label>
@@ -85,7 +84,7 @@ header('Location:profile.php');
             <label for="namsinh" class="sr-only">Năm sinh:</label>
                 <input type="text" class="form-control" id="namsinh" name="namsinh"
             value="<?php echo $currentUser? $currentUser['namsinh']:''?>">
-            </div>
+            </div>  
             <hr>
             <label for="image">Ảnh đại diện:</label>
                 <input type="file" class="form-control-file" id="file" name="file"> </div>
