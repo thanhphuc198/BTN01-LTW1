@@ -63,15 +63,19 @@
       <li>
     <li>
       <div class="col-md-8">
-              <div class="card" action="profile.php" method="POST" style="margin: 25px 0px 0px 45px; width: 680px">
+      <div class="card" action="profile.php" method="POST" enctype="multipart/form-data" style="margin: 25px 0px 0px 45px; width: 680px">
                   <h5 class="card-header">Cập nhật trạng thái</h5>
                   <div class="card-body">
                     <form  method="POST">
                         <div class="form-group">
                             <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
-                                aria-label="With textarea"></textarea></div>
+                                aria-label="With textarea"></textarea>
+                                <input type="file" name='Images' id = "Images" class="form-control">
+                              </div>
                         <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
-                    </form>
+                    </form >
+                    
+                   
                 </div>
               </div>
           </div>
