@@ -64,5 +64,16 @@ function findPost($userID){
     return $stmt->setFetchMode(PDO::FETCH_ASSOC);
 }
 
+function findComment($ipost){
+    global $db;
+    $stmt=$db->prepare("SELECT u.displayName, bl.Binhluan from binhluan bl, users u where u.id = bl.userId and bl.ippost = ?");
+    $stmt->query(array($ipost));
+    return $stmt->setFetchMode(PDO::FETCH_ASSOC);
+}
+function insertComment($userID,$binhluan, $ipost){
+    global $db;
+    $stmt=$db->prepare("INSERT INTO binhluan(userId, Binhluan, ippost) VALUES(?,?,?)");
+    return $stmt->execute(array($userID, $binhluan, $ipost));
+}
 
 ?>

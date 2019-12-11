@@ -1,5 +1,6 @@
 <?php 
   require_once 'init.php';
+  require_once('functions.php');
   global $db;
   $stmt=$db->prepare("SELECT * FROM posts where userId=?");
   $stmt->execute(array($currentUser['id']));
@@ -73,8 +74,6 @@
                         </div>
                         <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
                     </form >
-                    
-                   
                 </div>
               </div>
           </div>
@@ -100,13 +99,30 @@
                            ?>
                           </div>
                   </div>
+                  <h6>Bình luận</h6>
+                  <div  style="font-size: 12  px; line-height: 1.5; height: 150px; overflow: scroll; overflow-x: hidden;"  class="card-body">
+                            
+                            <?php 
+                              global $db;
+                              $stmt2=$db->prepare("SELECT u.displayName, bl.Binhluan from binhluan bl, users u where u.id = bl.userId and bl.ippost = ?");
+                              $stmt2->execute(array($row['id']));
+                              $stmt2->setFetchMode(PDO::FETCH_ASSOC);
+                            ?>
+                          <?php while ($idd = $stmt2->fetch()): ?>
+                            <div >
+                                  <a>-<?php echo htmlspecialchars($idd['displayName']) ?>:</a>
+                                  <i><?php echo htmlspecialchars($idd['Binhluan']) ?></i>
+                            </div>
+                          <?php endwhile; ?>
+                  </div>
                   <div class="card-body">
-                      <form action="update-profile.php" method="POST">
+                      <form action="index.php" method="POST">
                             <div class="form-group">
                             <hr>
+                            <input style="display: none;" type="text" name="ippost" id="ippost" value='<?php echo htmlspecialchars($row['id']) ?>'>
                             <textarea style="margin: 10px;" type="input" id="cmt" name="cmt" class="form-control" placeholder="Nhập cmt?"
                                 aria-label="With textarea"></textarea>
-                                <button style="float: right; width: 150px; height: 30px; color:white; border-radius: 20%; background-color: rgba(0,192,192,.5)">Comment</button>
+                            <button name="btn-cmt" style="float: right; width: 150px; height: 30px; color:white; border-radius: 20%; background-color: rgba(0,192,192,.5)">Comment</button>
 
 
                           </div>
@@ -121,7 +137,7 @@
 <?php else:?>
   <body style= 'background-image: url(/docs/css/backgroud.jpg); background-size: cover' >
     <form class="form-signin" method="POST">
-  <div class="text-center mb-4">
+  <div style="position: fixed; margin: 15% 0 0 45%" class="text-center mb-4">
     <img class="mb-4" src="bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">MXH ABC</h1>
   <button name="btn-signup" class="btn btn-lg btn-primary btn-block" style="background: gray;" type="submit">Đăng Nhập</button>
@@ -157,6 +173,18 @@ if(isset($_POST['btn-capnhat']))
     }
 }
 ?>
+
+<?php
+if(isset($_POST['btn-cmt']))
+{
+    $binhluan=$_POST['cmt'];
+    $ipost=$_POST['ippost'];
+    $userID=$currentUser['id'];
+    insertComment($userID,$binhluan, $ipost);
+    header("Refresh:0");
+}
+?>
+
 
 
 
