@@ -82,15 +82,15 @@ global $db;
             <div class="col-md-8">
                 <div class="card" action="profile.php" method="POST" style="margin: 25px 0px 0px 45px; width: 680px">
                   <div style="margin:10px 5px 5px 20px">
-                  <?php echo"<img src='".$currentUser['image']."' class='image-cropper' alt='...'>"; ?>
+                  <?php echo"<img src='".$currentUser['image']."' class='image-cropper'>"; ?>
                   <strong> <?php echo $currentUser? $currentUser['displayName']:''?> </strong>
                   <i style=' float: right'><?php echo htmlspecialchars($row['createdAt']) ?></i>
                   </div>
                   <div class="card-body">
                            <div class="form-group">
                             <i><?php echo htmlspecialchars($row['content']) ?></i>
-                            <?php if ($row['imageS'] == ""){
-                                  echo"<hr></hr>";
+                            <?php if ($row['image'] == ""){
+                                  echo"<hr>";
                                   }else
                                   {
                                       echo"<img width='400' height='auto' src='".$currentUser['image']."' class='card-img-top' alt='...'>";
