@@ -1,7 +1,7 @@
 <?php 
-  require_once 'init.php';
-  require_once('functions.php');
-  global $db;
+include 'header.php';
+
+global $db;
   $stmt=$db->prepare("SELECT * FROM posts where userId=?");
   $stmt->execute(array($currentUser['id']));
   $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -52,7 +52,6 @@
   }
  </script>
 <?php if($currentUser):?>
-<?php include 'header.php'; ?>
 <body style='background: url(Wallground.jpg);'>
   <ul style='margin: 0px 0px 0px 300px; list-style: none;box-shadow: inset -2px 0 0 rgba(0, 0, 0, .1); background-color: rgba(192,192,192,.4);width: 800px;'>
     <li   >
@@ -135,15 +134,11 @@
   </ul>
 </body>
 <?php else:?>
-  <body style= 'background-image: url(/docs/css/backgroud.jpg); background-size: cover' >
-    <form class="form-signin" method="POST">
-  <div style="position: fixed; margin: 15% 0 0 45%" class="text-center mb-4">
-    <img class="mb-4" src="bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">MXH ABC</h1>
-  <button name="btn-signup" class="btn btn-lg btn-primary btn-block" style="background: gray;" type="submit">Đăng Nhập</button>
-  <p class="mt-5 mb-3 text-muted text-center">&copy; KHTN 2016-2019</p>
-</form>
-</body>
+  <section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+        <h1  id="wc"class="display-4 py-2 text-truncate text-center text-bold">Welcome to Social network</h1>
+        </div>
 <?php endif;?>
 <?php include 'footer.php'; ?>
 
