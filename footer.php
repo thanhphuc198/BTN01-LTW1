@@ -1,4 +1,4 @@
-<p class="mt-5 mb-3 text-muted text-center text-primary">&copy; KHTN</p>
+
 </div>
 </section>
 <!-- Optional JavaScript -->

@@ -85,9 +85,7 @@
         position: absolute;
         top: 0;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
         z-index: -1;
-        border-radius: 20px;
     }
 
     #wc {
@@ -97,8 +95,8 @@
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body style="background: #CCCCCC">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <a class="navbar-brand" href="index.php">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,9 +112,6 @@
                     <a class="nav-link" href="register.php">Đăng ký</a>
                 </li>
                 <?php else:?>
-                <li class="nav-item <?php echo $page=='friends' ? 'active':''?>">
-                    <a class="nav-link" href="friends.php">Bạn bè</a>
-                </li>
                 <li class="nav-item <?php echo $page=='profile' ? 'active':''?>">
                     <a class="nav-link" href="profile.php">Trang cá nhân</a>
                 </li>
