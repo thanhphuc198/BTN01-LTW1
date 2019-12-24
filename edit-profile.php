@@ -62,7 +62,6 @@ header('Location:profile.php');
             <label for="namsinh">Năm sinh:</label>
             <input type="text" class="form-control" id="namsinh" name="namsinh"
                 value="<?php echo $currentUser? $currentUser['namsinh']:''?>">
-
             <label for="image">Ảnh đại diện:</label>
             <input type="file" class="form-control-file" id="file" name="file"> </div>
         <button type="submit" class="btn btn-primary float-right">Cập nhật</button>
