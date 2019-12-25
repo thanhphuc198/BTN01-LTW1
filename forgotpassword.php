@@ -1,5 +1,7 @@
 <?php
 include('init.php');
+include 'header.php';
+
 if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) 
 && ($_GET["action"]=="reset") && !isset($_POST["action"])){
   $key = $_GET["key"];
@@ -11,11 +13,11 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"])
   $row = mysqli_num_rows($query);
   if ($row==""){
   $error .= '<h2>Invalid Link</h2>
-<p>The link is invalid/expired. Either you did not copy the correct link
-from the email, or you have already used the key in which case it is 
-deactivated.</p>
-<p><a href="https://www.allphptricks.com/forgot-password/index.php">
-Click here</a> to reset password.</p>';
+              <p>The link is invalid/expired. Either you did not copy the correct link
+              from the email, or you have already used the key in which case it is 
+              deactivated.</p>
+              <p><a href="https://www.allphptricks.com/forgot-password/index.php">
+              Click here</a> to reset password.</p>';
  }else{
   $row = mysqli_fetch_assoc($query);
   $expDate = $row['expDate'];

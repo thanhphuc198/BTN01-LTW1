@@ -196,7 +196,7 @@ if(isset($_POST['btn-like']))
 {
     $ipost=$_POST['ippost'];
     increaseLike($ipost);
-    header("Refresh:0");
+    header("Location: friendProfile.php");
 }
 ?>
 

@@ -9,6 +9,7 @@ session_start();
 $page=detectPage();
 $currentUser=null;
 $currentPost=null;
+$currenUserTemp=null;
 $db = new PDO('mysql:host=localhost;dbname=btn01;charset=utf8', 'root', '');
 
 if(isset($_SESSION['userId'])){

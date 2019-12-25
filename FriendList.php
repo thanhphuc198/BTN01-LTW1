@@ -1,18 +1,12 @@
 <?php
     ob_start();
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    require_once('functions.php');
-    $currenUserTemp=null;
 ?>
-
 <!doctype html>
 <html lang="en">
 <?php 
   require_once 'init.php';
   global $db;
-  $stm=$db->prepare("SELECT s.id, s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
+  $stm=$db->prepare("SELECT s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
   $stm->execute(array($currentUser['id']));
   $stm->setFetchMode(PDO::FETCH_ASSOC);
 ?>
@@ -45,7 +39,8 @@
         .link-button {
             background: none;
             border: none;
-            color: grey;
+            color: blue;
+            text-decoration: underline;
             cursor: pointer;
             font-size: 1em;
             font-family: serif;
@@ -69,26 +64,14 @@
             <li style="padding: 10px; list-style: none; text-align: center; color: white;"><Strong style="float: top" >Danh sách bạn</a></li>
             <div class="FriendList">
                 <?php while ($row = $stm->fetch()): ?>
-                <form method="POST">
-                    <li style="padding: 5px; list-style: none; ">
-                            <?php echo"<img src='".$row['image']."' class='image-cropper' alt='...'>"; ?>
-                            <a href="friendProfile.php?id=<?php echo htmlspecialchars($row['id']) ?>">
-                            <?php echo $row? $row['displayName']:''?>
-                            </a>
-                            <input style="display: none;" type="text" name="idU" id="idU" value='<?php echo htmlspecialchars($row['id']) ?>'>
-                    </li>
-                </form>
+                <li style="padding: 5px; list-style: none; ">
+                        <?php echo"<img src='".$row['image']."' class='image-cropper' alt='...'>"; ?>
+                        <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                        </button>
+                </li>
                 <?php endwhile; ?>
             </div>
         </div>
         
     </div>
 </body>
-
-<?php
-if(isset($_POST['btn-link']))
-{
-    $idU=$_POST['idU'];
-    header("Location: friendProfile.php");
-}
-?>
