@@ -1,8 +1,12 @@
 <?php 
-  require_once 'init.php';
-  global $db;
-  $stmt=$db->prepare("SELECT * FROM posts where userId=?");
-  $stmt->execute(array($currentUser['id']));
+include 'header.php';
+
+global $db;
+  $stmt=$db->prepare("SELECT id, content, imageS, likeS, userId, createdAt FROM posts where userId=?
+                      UNION
+                      SELECT pt.id, pt.content, pt.imageS, pt.likeS, pt.userId, pt.createdAt FROM posts pt, friends f where pt.userId=f.user2id and f.user1id = ?
+                      ORDER BY RAND()");
+  $stmt->execute(array($currentUser['id'], $currentUser['id']));
   $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 
@@ -20,6 +24,7 @@
     <title>Networt Scocials</title>
     <!-- Bootstrap core CSS -->
 <link href="/docs/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
             html{
             overflow: scroll;
@@ -43,8 +48,8 @@
         }
       }
     </style>
+    <script src="https://kit.fontawesome.com/yourcode.js"></script>
     <!-- Custom styles for this template -->
-    <link href="/docs/css/signing.css" rel="stylesheet">
   </head>
 <script type="text/javascript">
   function toggleFB(){
@@ -52,53 +57,84 @@
   }
  </script>
 <?php if($currentUser):?>
-<?php include 'header.php'; ?>
-<body style='background: url(Wallground.jpg);'>
-  <ul style='margin: 0px 0px 0px 300px; list-style: none;box-shadow: inset -2px 0 0 rgba(0, 0, 0, .1); background-color: rgba(192,192,192,.4);width: 800px;'>
+<body style='background: #F5F5F5;'>
+<?php include 'friendBars.php';?>
+  <ul style='margin: 0px 0px 0px 300px; list-style: none;width: 800px;'>
     <li   >
-      <form style="margin: 50px 0px 0px 250px;" class="form-inline mt-2 mt-md-0">
+      <form style="padding-bottom: 20px; padding-left: 20px;" class="form-inline mt-2 mt-md-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       <li>
     <li>
       <div class="col-md-8">
-      <div class="card" action="profile.php" method="POST" enctype="multipart/form-data" style="margin: 25px 0px 0px 45px; width: 680px">
+      <div class="card" action="profile.php" method="POST" enctype="multipart/form-data" style="padding: 20px; width: 680px">
                   <h5 class="card-header">Cập nhật trạng thái</h5>
                   <div class="card-body">
-                    <form  method="POST">
+                    <form  action="index.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
                                 aria-label="With textarea"></textarea>
-                                <input type="file" name='Images' id = "Images" class="form-control">
-                              </div>
-                        <button type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
+                                <input style="padding: 10px;" type="file" class="form-control-file" id="file" name="file"> </div>
+                        </div>
+                        <button style="width: 200px;" type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
                     </form >
-                    
-                   
                 </div>
               </div>
           </div>
     </li>
     <li>
         <?php while ($row = $stmt->fetch()): ?>
-            <div class="col-md-8">
-                <div class="card" action="profile.php" method="POST" style="margin: 25px 0px 0px 45px; width: 680px">
+            <div class="col-md-8" style='margin-top: 20px;'>
+                <div class="card" action="profile.php" method="POST" style="padding: 20px; width: 680px">
                   <div style="margin:10px 5px 5px 20px">
-                  <?php echo"<img src='".$currentUser['image']."' class='image-cropper' alt='...'>"; ?>
-                  <strong> <?php echo $currentUser? $currentUser['displayName']:''?> </strong>
+                  <?php $currentUserPost=findUserById($row['userId'])?>
+                  <?php echo"<img src='".$currentUserPost['image']."' class='image-cropper'>"; ?>
+                  <strong> <?php echo $currentUserPost? $currentUserPost['displayName']:''?> </strong>
                   <i style=' float: right'><?php echo htmlspecialchars($row['createdAt']) ?></i>
                   </div>
                   <div class="card-body">
-                          <div class="form-group">
-                            <i><?php echo htmlspecialchars($row['content']) ?></i>
+                           <div class="form-group">
+                            <a style="padding: 10px;"><?php echo htmlspecialchars($row['content']) ?></a>
+                            <?php if ($row['imageS'] == ""){
+                                  echo"<hr>";
+                                  }else
+                                  {
+                                      echo"<img width='400' style='padding: 10px;' height='300' src='".$row['imageS']."' class='card-img-top' alt='...'>";
+                                  }
+                           ?>
                           </div>
                   </div>
+                  <div style="padding-right: 20px; padding-left: 30px;">
+                  <form action="index.php" method="POST">
+                    <input style="display: none;" type="text" name="ippost" id="ippost" value='<?php echo htmlspecialchars($row['id']) ?>'>
+                    <button name="btn-like" style="float: left; width: 150px; height: 30px; color:white; border-radius: 0.5rem; background-color: red">Yêu thích <i  class="glyphicon glyphicon-heart"></i>:<strong><?php echo htmlspecialchars($row['likeS']) ?></strong> </button>
+                  </form>
+                  </div>
+                  <div  style="font-size: 12px; line-height: 1.5; height: auto; overflow: scroll; overflow-x: hidden;"  class="card-body">                    
+                            <?php 
+                              global $db;
+                              $stmt2=$db->prepare("SELECT u.displayName, bl.Binhluan, bl.timeCMT from binhluan bl, users u where u.id = bl.userId and bl.ippost = ?");
+                              $stmt2->execute(array($row['id']));
+                              $stmt2->setFetchMode(PDO::FETCH_ASSOC);
+                            ?>
+                          <?php while ($idd = $stmt2->fetch()): ?>
+                            <div >
+                                  <a><strong><i style="color: green;">(<?php echo htmlspecialchars($idd['timeCMT']) ?>)</i>-<?php echo htmlspecialchars($idd['displayName']) ?>:</strong></a>
+                                  <a><?php echo htmlspecialchars($idd['Binhluan']) ?></a>
+                            </div>
+                          <?php endwhile; ?>
+                  </div>
                   <div class="card-body">
-                      <form action="update-profile.php" method="POST">
-                          <div class="form-group">
-                            <button class="btn btn-lg btn-primary btn-block">Like</button>
-                            <button class="btn btn-lg btn-primary btn-block">Comment</button>
+                      <form action="index.php" method="POST">
+                            <div class="form-group">
+                            <hr>
+                            <input style="display: none;" type="text" name="ippost" id="ippost" value='<?php echo htmlspecialchars($row['id']) ?>'>
+                            <textarea style="margin: 10px;" type="input" id="cmt" name="cmt" class="form-control" placeholder="Nhập cmt?"
+                                aria-label="With textarea"></textarea>
+                            <button name="btn-cmt" style="float: right; width: 150px; height: 30px; color:white; border-radius: 0.5rem; background-color: rgba(0,192,192,.5)">Bình luận</button>
+
+
                           </div>
                       </form>
                   </div>
@@ -109,15 +145,11 @@
   </ul>
 </body>
 <?php else:?>
-  <body style= 'background-image: url(/docs/css/backgroud.jpg); background-size: cover' >
-    <form class="form-signin" method="POST">
-  <div class="text-center mb-4">
-    <img class="mb-4" src="bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">MXH ABC</h1>
-  <button name="btn-signup" class="btn btn-lg btn-primary btn-block" style="background: gray;" type="submit">Đăng Nhập</button>
-  <p class="mt-5 mb-3 text-muted text-center">&copy; KHTN 2016-2019</p>
-</form>
-</body>
+  <section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+        <h1  id="wc"class="display-4 py-2 text-truncate text-center text-bold">Welcome to Social network</h1>
+        </div>
 <?php endif;?>
 <?php include 'footer.php'; ?>
 
@@ -132,8 +164,42 @@ if(isset($_POST['btn-capnhat']))
 {
     $cont=$_POST['contents'];
     $uID=$currentUser['id'];
-    insertPost($cont,$uID); 
+    $move = $_FILES['file']['name'];
+    if($_FILES['file']['name'])
+    {
+      move_uploaded_file($_FILES['file']['tmp_name'], $move);
+      $success=false;
+      insertPostWithImage($cont,$uID,$_FILES['file']['name']);
+      header("Refresh:0");
+    }
+    else
+    {
+      insertPost($cont,$uID);
+      header("Refresh:0");
+    }
+}
+?>
+
+<?php
+if(isset($_POST['btn-cmt']))
+{
+    $binhluan=$_POST['cmt'];
+    $ipost=$_POST['ippost'];
+    $userID=$currentUser['id'];
+    insertComment($userID,$binhluan, $ipost);
     header("Refresh:0");
 }
 ?>
+
+<?php
+if(isset($_POST['btn-like']))
+{
+    $ipost=$_POST['ippost'];
+    increaseLike($ipost);
+    header("Location: friendProfile.php");
+}
+?>
+
+
+
 
