@@ -1,7 +1,7 @@
 <?php 
   require_once 'init.php';
 ?>
-<?php include 'header.php'?>
+<?php //include 'header.php'?>
 <h1 class="text-primary mt-2">ĐĂNG KÝ</h1>
 <?php if(isset($_POST['email']) && isset($_POST['password'])): ?>
 <?php 
@@ -28,6 +28,13 @@ header('Location: index.php');
 <?php endif; ?>
 <?php else: ?>
 <hr>
+
+<html>
+<head>
+<title>Dang ky Tai Khoan</title>
+<link href="/docs/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+</html>
 <form style="width:400px;" action="register.php" method="POST">
     <div class="form-group">
         <label for="displayName">Họ, tên:</label>
