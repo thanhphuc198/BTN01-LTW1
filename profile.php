@@ -6,12 +6,15 @@
 
 }
 ?>
-                                <?php 
-                                global $db;
-                                $stm=$db->prepare("SELECT s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
-                                $stm->execute(array($currentUser['id']));
-                                $stm->setFetchMode(PDO::FETCH_ASSOC);
-                                ?>
+<div >
+<?php 
+global $db;
+$stm=$db->prepare("SELECT s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
+$stm->execute(array($currentUser['id']));
+$stm->setFetchMode(PDO::FETCH_ASSOC);
+
+?>
+</div>
 <?php include 'header.php'?>
 <?php
 if(isset($_POST['btn-capnhat']))
@@ -47,7 +50,8 @@ if(isset($_POST['btn-capnhat']))
             border-radius: 0.5rem;
             padding: 5px;
             overflow: scroll;
-            overflow-x: hidden
+            overflow-x: hidden;
+            margin :auto;
         }
         .FriendList-Out{
             background-color: #00CC99;
@@ -71,28 +75,16 @@ if(isset($_POST['btn-capnhat']))
 </head>
 <?php include 'profileCard.php'?>
 <body>
-<div style='margin: 0px 0px 0px 330px; list-style: none;width: 800px;'>
+
+<div style='margin: 0px auto; list-style: none;width: 800px;'>
     <div class="row">
         <div class="col-md-8" >
             <li style="margin: 20px;">
-                <div class="card" action="profile.php" method="POST" enctype="multipart/form-data" style="padding: 20px; width: 680px">
-                        <h5 class="card-header">Cập nhật trạng thái</h5>
-                        <div class="card-body">
-                            <form  action="index.php" method="POST" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <textarea type="input" id="contents" name="contents" class="form-control" placeholder="Bạn đang nghĩ gì?"
-                                        aria-label="With textarea"></textarea>
-                                        <input style="padding: 10px;" type="file" class="form-control-file" id="file" name="file"> </div>
-                                </div>
-                                <button style="width: 200px;" type="submit" name="btn-capnhat" class="btn btn-primary float-right">Cập nhật</button>
-                            </form >
-                        </div>
-                    </div>
-                </div>
+            
             </li>
             <li style="margin: 20px;">
-                <div class="FriendList-Out" style="margin-top: 20px;">
-                    <li style="padding: 10px; list-style: none; text-align: left; color: Black;"><Strong style="float: top" >Danh sách bạn</a></li>
+                <div class="FriendList-Out" style="margin-top: 10px;">
+                    <li style="padding: 10px; list-style: none; text-align: left; color: Black; margin : 0px auto;"><Strong style="float: top" >Danh sách bạn</a></li>
                     <div class="FriendList">
                     <?php while ($row = $stm->fetch()): ?>
                     <li style="padding: 5px; list-style: none; ">
