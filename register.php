@@ -1,5 +1,7 @@
 <?php 
   require_once 'init.php';
+  include('class.smtp.php');
+  include "class.phpmailer.php"; 
 ?>
 <?php include 'header.php'?>
 <?php if(isset($_POST['displayName']) && isset($_POST['email']) && isset($_POST['password'])): ?>
@@ -7,9 +9,8 @@
     $displayName=$_POST['displayName'];
     $email=$_POST['email'];
     $password=$_POST['password'];
-
-    $success=false;
-    $user=findUserByEmail($email); 
+    $success=false; 
+    $user = findUserByEmail($email);
     if ($email == '' || $password == '' || $displayName == ''){
         echo "Bạn vui lòng nhập đầy đủ thông tin!";
     }
@@ -18,7 +19,16 @@
     }
     if(!$user && $email != '' && $password != '' && $displayName != ''){
         $newUserId=insertUser($displayName,$email,$password);
-        //$_SESSION['userId']=$newUserId;
+        $user1 = findUserByEmail($email);
+        $var1=$user1['id'];
+        $var2=$user1['code'];
+        $content = "Nhấn vào link để kích hoạt tài khoản: http://localhost/BTN01-LTW1/activeMail.php?id=$var1&code=$var2";
+        $title = 'Kích hoạt tài khoảnr';
+        $nTo = $displayName;
+        $mTo = $email;
+        $diachicc = $email;
+        //test gui mail
+        $mail = sendMail($title, $content, $nTo, $mTo,$diachicc='');
         $success=true;
     }
 ?>

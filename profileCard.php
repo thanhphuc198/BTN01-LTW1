@@ -49,11 +49,6 @@ if(isset($_POST['btn-capnhat']))
         }
         .images{
             border-radius: 0.8rem;
-<<<<<<< HEAD
-=======
-            width: 50px;
-            height: 50px;
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
         }
         .ListS
         {

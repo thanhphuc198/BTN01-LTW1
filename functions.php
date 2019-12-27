@@ -32,10 +32,7 @@ function insertUser($displayName,$email,$password){
     $hashPassword =password_hash($password,PASSWORD_DEFAULT);
     $code=generateRandomString(10);
     $stmt=$db->prepare("INSERT INTO users(displayName, email, password,status,code) VALUES(?,?,?,?,?)");
-    $stmt->execute(array($displayName,$email,$hashPassword,0,$code));
-    $id= $db->lastInsertId();
-    sendEmail($email,$displayName,"Kích hoạt tài khoản","Mã kích hoạt $code");
-    return $id;
+    return $stmt->execute(array($displayName,$email,$hashPassword,0,$code));
 }
 
 function updateUserPassword($id, $password){
@@ -89,7 +86,6 @@ function increaseLike($ipost){
     return $stmt->execute(array($ipost));
 }
 
-<<<<<<< HEAD
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -99,37 +95,48 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
-function sendEmail($to,$name,$subject,$content){
 
-    $mail = new PHPMailer;
-    $mail->isSMTP();
-    $mail->CharSet='UTF-8';
-    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-    $mail->Host = 'smtp.gmail.com';
-
-    $mail->Port = 587;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    //Whether to use SMTP authentication
-    $mail->SMTPAuth = true;
-    //Username to use for SMTP authentication - use full email address for gmail
-    $mail->Username = 'demo.ltweb1@gmail.com';
-    //Password to use for SMTP authentication
-    $mail->Password = 'laptrinhweb1';
-    //Set who the message is to be sent from
-    $mail->setFrom('demo.ltweb1@gmail.com', 'Lap trinh Web 1');
-    //Set who the message is to be sent to
-    $mail->addAddress($to, $name);
-    //Set the subject line
-    $mail->isHTML(true);
-    $mail->Subject = $subject;
-    //Read an HTML message body from an external file, convert referenced images to embedded,
-    //convert HTML into a basic plain-text alternative body
-    $mail->msgHTML=$content;
-    //Replace the plain text body with one created manually
-    $mail->AltBody = $content;
-    $mail->send();
+function sendMail($title, $content, $nTo, $mTo,$diachicc=''){
+    $nFrom = 'Freetuts.net';
+    $mFrom = 'phongcao3091998@gmail.com';  //dia chi email cua ban 
+    $mPass = 'Binpro123';       //mat khau email cua ban
+    $mail             = new PHPMailer();
+    $body             = $content;
+    $mail->IsSMTP(); 
+    $mail->CharSet   = "utf-8";
+    $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
+    $mail->SMTPAuth   = true;                    // enable SMTP authentication
+    $mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+    $mail->Host       = "smtp.gmail.com";        
+    $mail->Port       = 465;
+    $mail->Username   = $mFrom;  // GMAIL username
+    $mail->Password   = $mPass;               // GMAIL password
+    $mail->SetFrom($mFrom, $nFrom);
+    //chuyen chuoi thanh mang
+    $ccmail = explode(',', $diachicc);
+    $ccmail = array_filter($ccmail);
+    if(!empty($ccmail)){
+        foreach ($ccmail as $k => $v) {
+            $mail->AddCC($v);
+        }
+    }
+    $mail->Subject    = $title;
+    $mail->MsgHTML($body);
+    $address = $mTo;
+    $mail->AddAddress($address, $nTo);
+    $mail->AddReplyTo('phongcao3091998@gmail.com', 'DOANLWEB1.net');
+    if(!$mail->Send()) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
+
+
+function updateStatus($id){
+    global $db;
+    $stmt=$db->prepare("UPDATE users SET status=1 WHERE id=?");
+    return $stmt->execute(array($id));
+}
+
 ?>
-=======
-?>
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f

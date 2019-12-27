@@ -8,8 +8,6 @@ global $db;
                       ORDER BY RAND()");
   $stmt->execute(array($currentUser['id'], $currentUser['id']));
   $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-
 ?>
 
 
@@ -63,7 +61,7 @@ global $db;
     <li   >
       <form style="padding-bottom: 20px; padding-left: 20px;" class="form-inline mt-2 mt-md-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name = "Serch" >Search</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       <li>
     <li>
@@ -151,7 +149,7 @@ global $db;
         <h1  id="wc"class="display-4 py-2 text-truncate text-center text-bold">Welcome to Social network</h1>
         </div>
 <?php endif;?>
-
+<?php include 'footer.php'; ?>
 
 <?php
 	if (isset($_POST["btn-signup"])) {
@@ -196,11 +194,7 @@ if(isset($_POST['btn-like']))
 {
     $ipost=$_POST['ippost'];
     increaseLike($ipost);
-<<<<<<< HEAD
     header("Refresh:0");
-=======
-    header("Location: friendProfile.php");
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
 }
 ?>
 

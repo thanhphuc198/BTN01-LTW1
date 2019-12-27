@@ -6,24 +6,12 @@
 
 }
 ?>
-<<<<<<< HEAD
 <?php 
                                 global $db;
                                 $stm=$db->prepare("SELECT s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
                                 $stm->execute(array($currentUser['id']));
                                 $stm->setFetchMode(PDO::FETCH_ASSOC);
                                 ?>
-=======
-<div >
-<?php 
-global $db;
-$stm=$db->prepare("SELECT s.displayName, s.image FROM friends f, users s WHERE f.user2id = s.id AND f.user1id = ?");
-$stm->execute(array($currentUser['id']));
-$stm->setFetchMode(PDO::FETCH_ASSOC);
-
-?>
-</div>
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
 <?php include 'header.php'?>
 <?php
 if(isset($_POST['btn-capnhat']))
@@ -82,10 +70,8 @@ if(isset($_POST['btn-capnhat']))
         }
     </style>
 </head>
-<?php include 'profileCard.php'?>
 <body>
 
-<<<<<<< HEAD
 <head>
     <style>
     .image-cropper {
@@ -124,8 +110,6 @@ if(isset($_POST['btn-capnhat']))
     }
     </style>
 </head>
-<!-- <?php include 'profileCard.php'?> -->
-
 <body>
     <!-- <div style='margin: 0px 0px 0px 330px; list-style: none;width: 800px;'> -->
     <div class="container-fluid">
@@ -139,7 +123,6 @@ if(isset($_POST['btn-capnhat']))
                             echo"<img width='100' height='200' src='".$currentUser['image']."' class='card-img-top' alt='...'>";
                         }
                 ?>   
-
                     <div class="card-body text-center">
                         <h5 class="card-title">
                             <strong><?php echo $currentUser? $currentUser['displayName']:''?></strong>
@@ -178,24 +161,6 @@ if(isset($_POST['btn-capnhat']))
                         </form>
                     </div>
             </div>
-            <div class="col-md-3">
-                <li style="margin: 10px;">
-                    <div class="FriendList-Out" style="margin-top: 20px;">
-                <li style="padding: 10px; list-style: none; text-align: left; color: Black;"><Strong
-                        style="float: top">Danh
-                        sách bạn</a></li>
-                <div class="FriendList">
-                    <?php while ($row = $stm->fetch()): ?>
-                    <li style="padding: 5px; list-style: none; ">
-                        <?php echo"<img src='".$row['image']."' class='image-cropper' alt='...'>"; ?>
-                        <a class="button" href="#" style="font-size: 10px;"> <?php echo $row? $row['displayName']:''?>
-                        </a>
-                    </li>
-                    <?php endwhile; ?>
-                </div>
-                </li>
-
-            </div>
         </div>
     </div>
     </div>
@@ -204,33 +169,6 @@ if(isset($_POST['btn-capnhat']))
 <?php include 'footer.php'; ?>
 
 <?php
-=======
-<div style='margin: 0px auto; list-style: none;width: 800px;'>
-    <div class="row">
-        <div class="col-md-8" >
-            <li style="margin: 20px;">
-            
-            </li>
-            <li style="margin: 20px;">
-                <div class="FriendList-Out" style="margin-top: 10px;">
-                    <li style="padding: 10px; list-style: none; text-align: left; color: Black; margin : 0px auto;"><Strong style="float: top" >Danh sách bạn</a></li>
-                    <div class="FriendList">
-                    <?php while ($row = $stm->fetch()): ?>
-                    <li style="padding: 5px; list-style: none; ">
-                        <?php echo"<img src='".$row['image']."' class='image-cropper' alt='...'>"; ?>
-                        <a class="button" href="#" style="font-size: 10px;"> <?php echo $row? $row['displayName']:''?> </a>     
-                    </li>
-                    <?php endwhile; ?>
-                </div>
-            </li>
-        </div>
-    </div>      
-</div>
-</body>
-    <?php include 'footer.php'; ?>
-
-    <?php
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
 if(isset($_POST['btn-capnhat']))
 {
     $cont=$_POST['contents'];

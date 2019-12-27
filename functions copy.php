@@ -1,3 +1,5 @@
+
+
 <?php
 function findUserByEmail($email){
     global $db;
@@ -80,6 +82,13 @@ function increaseLike($ipost){
     global $db;
     $stmt=$db->prepare("UPDATE posts SET likeS=likeS +1 where id = ?");
     return $stmt->execute(array($ipost));
+}
+
+function findPost($userID){
+    global $db;
+    $stmt=$db->prepare("SELECT * FROM posts where userId=? ORDER BY RAND()");
+    $stmt->query(array($userID));
+    return $stmt->setFetchMode(PDO::FETCH_ASSOC);
 }
 
 ?>

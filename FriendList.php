@@ -20,15 +20,13 @@
             width: 200px;
             background-color: #DCDCDC;
             border-radius: 0.5rem;
-            
         }
         .FriendList{
             background-color: white;
             border-radius: 0.5rem;
             padding: 5px;
             overflow: scroll;
-            overflow-x: hidden;
-            margin:auto;
+            overflow-x: hidden
         }
         .FriendList-Out{
             background-color: #00CC99;
@@ -58,7 +56,7 @@
 <body>
     <div class="FriendBars"> 
         <div class="FriendList-Out">
-            <li style="padding: 10px; list-style: none; text-align: center; color: white; "><Strong style="float: top" >Thông Báo</a></li>
+            <li style="padding: 10px; list-style: none; text-align: center; color: white;"><Strong style="float: top" >Thông Báo</a></li>
             <div class="FriendList">
             </div>
         </div>
@@ -69,6 +67,7 @@
                 <li style="padding: 5px; list-style: none; ">
                         <?php echo"<img src='".$row['image']."' class='image-cropper' alt='...'>"; ?>
                         <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                        <?php echo $row? $row['displayName']:''?>
                         </button>
                 </li>
                 <?php endwhile; ?>
