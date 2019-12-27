@@ -27,6 +27,7 @@
         }
         .images{
             border-radius: 0.8rem;
+           
         }
         .ListS
         {
