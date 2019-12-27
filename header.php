@@ -85,9 +85,7 @@
         position: absolute;
         top: 0;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
         z-index: -1;
-        border-radius: 20px;
     }
 
     #wc {
@@ -98,7 +96,11 @@
 </head>
 
 <body style="background: #CCCCCC">
+<<<<<<< HEAD
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+=======
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+>>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
         <a class="navbar-brand" href="index.php">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

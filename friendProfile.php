@@ -1,42 +1,20 @@
 <?php 
   require_once 'init.php';
+  $currenUserTemp=null;
+  $currenUserTemp=findUserById($_GET['id']);
   if(!$currentUser){
     header('location: index.php');
     exit();
 }
 ?>
-<?php
-if(isset($_POST['btn-capnhat']))
-{
-    $cont=$_POST['contents'];
-    $uID=$currentUser['id'];
-    $move = $_FILES['file']['name'];
-    if($_FILES['file']['name'])
-    {
-      move_uploaded_file($_FILES['file']['tmp_name'], $move);
-      $success=false;
-      insertPostWithImage($cont,$uID,$_FILES['file']['name']);
-      header("Refresh:0");
-    }
-    else
-    {
-      insertPost($cont,$uID);
-      header("Refresh:0");
-    }
-}
-?>
 <head>
 <style>
         .profileBars {
-            left: 5px;
+            left: 30%;
             position: absolute;
             top: 65px;
             height: auto;
-<<<<<<< HEAD
-            width: 300px;
-=======
-            width: 350px;
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
+            width: 40%;
             background-color: white;
             border-radius: 0.5rem;
             padding: 20px;
@@ -49,11 +27,7 @@ if(isset($_POST['btn-capnhat']))
         }
         .images{
             border-radius: 0.8rem;
-<<<<<<< HEAD
-=======
-            width: 50px;
-            height: 50px;
->>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
+           
         }
         .ListS
         {
@@ -77,31 +51,31 @@ if(isset($_POST['btn-capnhat']))
         }
     </style>
 </head>
+<?php include 'header.php'?>
 <body>
 <div class="profileBars">
-                <?php if ($currentUser['image'] == ""){
-                        echo"<img class='images' src='https://1660485trinhphuquy.000webhostapp.com/1.png' class='card-img-top' alt='...'>";
+                <?php if ($currenUserTemp['image'] == ""){
+                        echo"<img class='images' width='250' height='200' src='https://1660485trinhphuquy.000webhostapp.com/1.png' class='card-img-top' alt='...'>";
                         }else
                         {
-                            echo"<img class='images' width='250' height='200' src='".$currentUser['image']."' class='card-img-top' alt='...'>";
+                            echo"<img class='images' width='250' height='200' src='".$currenUserTemp['image']."' class='card-img-top' alt='...'>";
                         }
                 ?>
                 <div class="card-body text-center">
                     <h3 style="font-family: Verdana;" class="card-title">
-                        <strong><?php echo $currentUser? $currentUser['displayName']:''?></strong>
+                        <strong><?php echo $currenUserTemp? $currenUserTemp['displayName']:''?></strong>
                     </h3>
                     <p class="ListS">
                         <ul class="ListS">
                             <li><strong>Email:</strong>
-                                <?php echo $currentUser? $currentUser['email']:''?>
+                                <?php echo $currenUserTemp? $currenUserTemp['email']:''?>
                             </li>
                             <li><strong>Số điện thoại:</strong>
-                                <?php echo $currentUser? $currentUser['sdt']:''?>
+                                <?php echo $currenUserTemp? $currenUserTemp['sdt']:''?>
                             <li><strong>Năm sinh:</strong>
-                                <?php echo $currentUser? $currentUser['namsinh']:''?>
+                                <?php echo $currenUserTemp? $currenUserTemp['namsinh']:''?>
                         </ul>
                     </p>
-                    <a class="button" href="edit-profile.php" class="btn btn-primary" style="widht:200">Chỉnh sửa thông tin</a>
-                    <a class="button" href="change-password.php" class="btn btn-primary mt-2" style="wight:18rem">Đổi mật khẩu</a>
+                    <a class="button" href="edit-profile.php" class="btn btn-primary" style="widht:200">Hủy kết bạn</a>
                 </div>
 </div>

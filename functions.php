@@ -89,6 +89,7 @@ function increaseLike($ipost){
     return $stmt->execute(array($ipost));
 }
 
+<<<<<<< HEAD
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -129,3 +130,6 @@ function sendEmail($to,$name,$subject,$content){
     $mail->send();
 }
 ?>
+=======
+?>
+>>>>>>> b7b270d3d0f38b64dc8a58ea2ce88453c1abfe6f
