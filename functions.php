@@ -1,4 +1,8 @@
 <?php
+require_once('vendor/autoload.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 function findUserByEmail($email){
     global $db;
     $stmt=$db->prepare("SELECT * FROM users WHERE email=?");
@@ -26,9 +30,12 @@ function findUserById($id){
 function insertUser($displayName,$email,$password){
     global $db;
     $hashPassword =password_hash($password,PASSWORD_DEFAULT);
-    $stmt=$db->prepare("INSERT INTO users(displayName, email, password) VALUES(?,?,?)");
-    $stmt->execute(array($displayName,$email,$hashPassword));
-    return $db->lastInsertId();
+    $code=generateRandomString(10);
+    $stmt=$db->prepare("INSERT INTO users(displayName, email, password,status,code) VALUES(?,?,?,?,?)");
+    $stmt->execute(array($displayName,$email,$hashPassword,0,$code));
+    $id= $db->lastInsertId();
+    sendEmail($email,$displayName,"Kích hoạt tài khoản","Mã kích hoạt $code");
+    return $id;
 }
 
 function updateUserPassword($id, $password){
@@ -82,4 +89,43 @@ function increaseLike($ipost){
     return $stmt->execute(array($ipost));
 }
 
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+function sendEmail($to,$name,$subject,$content){
+
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->CharSet='UTF-8';
+    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    $mail->Host = 'smtp.gmail.com';
+
+    $mail->Port = 587;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    //Whether to use SMTP authentication
+    $mail->SMTPAuth = true;
+    //Username to use for SMTP authentication - use full email address for gmail
+    $mail->Username = 'demo.ltweb1@gmail.com';
+    //Password to use for SMTP authentication
+    $mail->Password = 'laptrinhweb1';
+    //Set who the message is to be sent from
+    $mail->setFrom('demo.ltweb1@gmail.com', 'Lap trinh Web 1');
+    //Set who the message is to be sent to
+    $mail->addAddress($to, $name);
+    //Set the subject line
+    $mail->isHTML(true);
+    $mail->Subject = $subject;
+    //Read an HTML message body from an external file, convert referenced images to embedded,
+    //convert HTML into a basic plain-text alternative body
+    $mail->msgHTML=$content;
+    //Replace the plain text body with one created manually
+    $mail->AltBody = $content;
+    $mail->send();
+}
 ?>
