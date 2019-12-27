@@ -32,7 +32,7 @@ if(isset($_POST['btn-capnhat']))
             position: absolute;
             top: 65px;
             height: auto;
-            width: 300px;
+            width: 350px;
             background-color: white;
             border-radius: 0.5rem;
             padding: 20px;
@@ -45,6 +45,8 @@ if(isset($_POST['btn-capnhat']))
         }
         .images{
             border-radius: 0.8rem;
+            width: 50px;
+            height: 50px;
         }
         .ListS
         {
