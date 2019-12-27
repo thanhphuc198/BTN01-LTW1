@@ -18,7 +18,7 @@
     }
     if(!$user && $email != '' && $password != '' && $displayName != ''){
         $newUserId=insertUser($displayName,$email,$password);
-        $_SESSION['userId']=$newUserId;
+        //$_SESSION['userId']=$newUserId;
         $success=true;
     }
 ?>
@@ -28,8 +28,7 @@
         <div class="container">
             <div class="row text-white">
                 <div class="mx-auto form p-4">
-                    <h1 id="wc" class="display-4 py-2 text-truncate text-center">Đăng ký thành công</h1>
-                    <a href="login.php" class="btn btn-primary btn-lg">Đăng nhập</a>
+                    <h1 id="wc" class="display-4 py-2 text-truncate text-center">Kiểm tra email để kích hoạt tài khoản</h1>
                 </div>
             </div>
         </div>

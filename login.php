@@ -11,7 +11,7 @@
     $success=false;
 
     $user=findUserByEmail($email);
-    if($user && password_verify($password,$user['password'])){
+    if($user && $user['status']==1 && password_verify($password,$user['password'])){
         $success=true;
         $_SESSION['userId']= $user['id'];
     }

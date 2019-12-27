@@ -151,7 +151,7 @@ global $db;
         <h1  id="wc"class="display-4 py-2 text-truncate text-center text-bold">Welcome to Social network</h1>
         </div>
 <?php endif;?>
-<?php include 'footer.php'; ?>
+
 
 <?php
 	if (isset($_POST["btn-signup"])) {
