@@ -20,13 +20,15 @@
             width: 200px;
             background-color: #DCDCDC;
             border-radius: 0.5rem;
+            
         }
         .FriendList{
             background-color: white;
             border-radius: 0.5rem;
             padding: 5px;
             overflow: scroll;
-            overflow-x: hidden
+            overflow-x: hidden;
+            margin:auto;
         }
         .FriendList-Out{
             background-color: #00CC99;
@@ -56,7 +58,7 @@
 <body>
     <div class="FriendBars"> 
         <div class="FriendList-Out">
-            <li style="padding: 10px; list-style: none; text-align: center; color: white;"><Strong style="float: top" >Thông Báo</a></li>
+            <li style="padding: 10px; list-style: none; text-align: center; color: white; "><Strong style="float: top" >Thông Báo</a></li>
             <div class="FriendList">
             </div>
         </div>
